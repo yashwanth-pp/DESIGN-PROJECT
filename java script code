@@ -1,0 +1,72 @@
+const creds = { user: "admin", pass: "1234" };
+
+const themeSwitch = document.getElementById("themeSwitch");
+const loginPage = document.getElementById("loginPage");
+const timetablePage = document.getElementById("timetablePage");
+const username = document.getElementById("username");
+const password = document.getElementById("password");
+const loginError = document.getElementById("loginError");
+const teachersInput = document.getElementById("teachersInput");
+const classesInput = document.getElementById("classesInput");
+const roomsInput = document.getElementById("roomsInput");
+const timeslotsInput = document.getElementById("timeslotsInput");
+const timetableTable = document.getElementById("timetableTable");
+const printBtn = document.getElementById("printBtn");
+
+// THEME TOGGLE
+themeSwitch.addEventListener("change", () => {
+  document.body.className = themeSwitch.checked ? "light" : "dark";
+});
+
+// LOGIN / LOGOUT
+function login() {
+  if (username.value === creds.user && password.value === creds.pass) {
+    loginPage.classList.add("hidden");
+    timetablePage.classList.remove("hidden");
+    loginError.textContent = "";
+  } else {
+    loginError.textContent = "Invalid credentials";
+  }
+}
+
+function logout() {
+  timetablePage.classList.add("hidden");
+  loginPage.classList.remove("hidden");
+}
+
+// FORGOT PASSWORD
+function forgotPassword() {
+  alert("Demo Login\nUsername: admin\nPassword: 1234");
+}
+
+// GENERATE TIMETABLE
+function generateTimetable() {
+  const t = teachersInput.value.split("\n").filter(Boolean);
+  const c = classesInput.value.split("\n").filter(Boolean);
+  const r = roomsInput.value.split(",");
+  const time = timeslotsInput.value.split(",");
+
+  if (!t.length || !c.length || !r.length || !time.length) return alert("Fill all fields!");
+
+  timetableTable.classList.remove("hidden");
+  printBtn.classList.remove("hidden");
+
+  const tbody = timetableTable.querySelector("tbody");
+  tbody.innerHTML = "";
+
+  c.forEach((cls, i) => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${cls}</td>
+        <td>${t[i % t.length]}</td>
+        <td>${time[i % time.length]}</td>
+        <td>${r[i % r.length]}</td>
+      </tr>
+    `;
+  });
+}
+
+// PRINT TIMETABLE
+function printTimetable() {
+  window.print();
+}
