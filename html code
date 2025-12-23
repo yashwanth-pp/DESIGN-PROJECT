@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎓 AI Timetable Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark">
+
+<header class="header">
+  <h1>🎓 AI Timetable Generator</h1>
+  <div class="theme-toggle">
+    <span>🌙</span>
+    <label class="switch">
+      <input type="checkbox" id="themeSwitch">
+      <span class="slider"></span>
+    </label>
+    <span>☀️</span>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- LOGIN PAGE -->
+  <section class="card" id="loginPage">
+    <h2>Admin Login</h2>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <button class="primary" onclick="login()">Login</button>
+    <p class="hint" onclick="forgotPassword()">Forgot password?</p>
+    <div id="loginError" class="error"></div>
+  </section>
+
+  <!-- TIMETABLE PAGE -->
+  <section class="card hidden" id="timetablePage">
+    <div class="top">
+      <h2>Generate Timetable</h2>
+      <button class="danger" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="grid">
+      <textarea id="teachersInput" placeholder="Teachers (one per line)"></textarea>
+      <textarea id="classesInput" placeholder="Subjects / Classes (one per line)"></textarea>
+    </div>
+
+    <div class="grid">
+      <input id="roomsInput" placeholder="Rooms (R1,R2)">
+      <input id="timeslotsInput" placeholder="Slots (Mon9,Mon10)">
+    </div>
+
+    <button class="primary" onclick="generateTimetable()">Generate</button>
+    <button id="printBtn" class="secondary hidden" onclick="printTimetable()">Export</button>
+
+    <table id="timetableTable" class="hidden">
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Teacher</th>
+          <th>Time</th>
+          <th>Room</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
